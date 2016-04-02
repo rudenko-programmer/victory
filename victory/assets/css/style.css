@@ -1,0 +1,31 @@
+#menu-posts-victory_post_type{
+    //display:none;
+}
+#minor-publishing{
+   // display:none;
+}
+.type-delete a{
+    color:red;
+    font-size: 16px;
+}
+span.support::before {
+    content: attr(data-title); /*помещаем подсказку в псевдоэлемент*/
+    display: none; /*скрываем подсказку*/
+}
+span.support:focus::before {
+    display: block;
+    position: relative;
+    float: right;
+}
+.add-box td{
+    padding-bottom: 20px;
+    font-size: 15px;
+}
+var {
+    padding: 0 .3em;
+    background-color: rgba(0,0,0,.06);
+    border: 1px solid rgba(0,0,0,.08);
+    border-top: 0;
+    border-bottom: 0;
+    border-radius: 2px;
+}

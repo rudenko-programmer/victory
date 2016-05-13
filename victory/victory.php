@@ -2,7 +2,7 @@
 /*
 Plugin Name: Victory - my WordPress solution
 Description: Проэкт предназначен для автоматизации создания произвольных типов поста, таксономий, дополнительных блоков
-Version: 1.0
+Version: 0.0.1.0
 Author: Rudenko Maksim
 Author URI: https://github.com/rudenko-programmer
 Plugin URI: https://github.com/rudenko-programmer/victory
@@ -29,4 +29,10 @@ add_action( 'admin_enqueue_scripts', 'victory_load_script' );
 /**
  * Инициализация файлов директории INCLUDES
  */
-require VICTORY_DIR.'/includes/includes.php';
+//require VICTORY_DIR.'/includes/includes.php';
+
+require_once VICTORY_DIR.'/includes/classes/VictoryAdminSide.php';
+require_once VICTORY_DIR.'/includes/classes/CustomPostTypeInit.php';
+
+$GLOBALS['VICTORY_ADMIN_SIDE']       = new VictoryAdminSide();
+$GLOBALS['VICTORY_CUSTOM_POST_TYPE'] = new CustomPostTypeInit();

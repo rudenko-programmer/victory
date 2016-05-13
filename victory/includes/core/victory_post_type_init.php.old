@@ -1,0 +1,73 @@
+<?php
+add_action( 'init', 'victory_post_type_init' );
+function victory_post_type_init() {
+
+    global $post;
+    global $wp_query;
+
+    $temp = $wp_query;
+    $wp_query = null;
+    $args = array( 'post_type' => 'victory_post_type',
+        'posts_per_page' => '-1',
+        'order' => 'ASC'
+    );
+    $wp_query = new WP_Query($args);
+    if ( have_posts() ) :
+        while ( have_posts() ) : the_post();
+            $p_t_status  = get_post_meta($post->ID,'_p_t_status', true)?get_post_meta($post->ID,'_p_t_status', true):'0';
+            $p_t_name  = get_post_meta($post->ID,'_p_t_name', true)?get_post_meta($post->ID,'_p_t_name', true):'';
+
+            if(!post_type_exists($p_t_name) && $p_t_status == '1'){
+                $args = array();
+
+
+                $p_t_labels  = get_post_meta($post->ID,'_p_t_labels', true)?get_post_meta($post->ID,'_p_t_labels', true):'';
+                $p_t_supports  = get_post_meta($post->ID,'_p_t_supports', true)?get_post_meta($post->ID,'_p_t_supports', true):'';
+                $p_t_menu_position  = get_post_meta($post->ID,'_p_t_menu_position', true)?get_post_meta($post->ID,'_p_t_menu_position', true):'26';
+                $p_t_menu_icon  = get_post_meta($post->ID,'_p_t_menu_icon', true)?get_post_meta($post->ID,'_p_t_menu_icon', true):'dashicons-admin-post';
+                $p_t_public  = get_post_meta($post->ID,'_p_t_public', true)?get_post_meta($post->ID,'_p_t_public', true):'1';
+                $p_t_hierarchical  = get_post_meta($post->ID,'_p_t_hierarchical', true)?get_post_meta($post->ID,'_p_t_hierarchical', true):'0';
+                $p_t_exclude_from_search  = get_post_meta($post->ID,'_p_t_exclude_from_search', true)?get_post_meta($post->ID,'_p_t_exclude_from_search', true):'0';
+
+                if(is_array($p_t_labels) && $p_t_labels != ''){
+                    $args['labels'] = array(
+                        'name'          => isset($p_t_labels['name']) && $p_t_labels['name'] !='' ?$p_t_labels['name']:'Записи',
+                        'singular_name' => isset($p_t_labels['singular_name'])  && $p_t_labels['singular_name'] !=''?$p_t_labels['singular_name']:'Запись',
+                        'add_new'       => isset($p_t_labels['add_new']) && $p_t_labels['add_new'] !=''?$p_t_labels['add_new']:'Добавить новую',
+                        'add_new_item'  => isset($p_t_labels['add_new_item']) && $p_t_labels['add_new_item'] !=''?$p_t_labels['add_new_item']:'Добавить новую запись',
+                        'edit_item'     => isset($p_t_labels['edit_item']) && $p_t_labels['edit_item'] !=''?$p_t_labels['edit_item']:'Редактировать запись',
+                        'new_item'      => isset($p_t_labels['new_item']) && $p_t_labels['new_item'] !=''?$p_t_labels['new_item']:'Новая запись',
+                        'view_item'     => isset($p_t_labels['view_item']) && $p_t_labels['view_item'] !=''?$p_t_labels['view_item']:'Посмотреть запись',
+                        'search_items'  => isset($p_t_labels['search_items']) && $p_t_labels['search_items'] !=''?$p_t_labels['search_items']:'Найти запись',
+                        'not_found'     => isset($p_t_labels['not_found']) && $p_t_labels['not_found'] !=''?$p_t_labels['not_found']:'Запись не было найдено',
+                        'not_found_in_trash'    => isset($p_t_labels['not_found_in_trash']) && $p_t_labels['not_found_in_trash'] !=''?$p_t_labels['not_found_in_trash']:'Запись не было найдено в корзине',
+                        'parent_item_colon'     => isset($p_t_labels['parent_item_colon']) && $p_t_labels['parent_item_colon'] !=''?$p_t_labels['parent_item_colon']:'Родительская запись',
+                        'menu_name'     => isset($p_t_labels['menu_name']) && $p_t_labels['menu_name'] !=''?$p_t_labels['menu_name']:'Записи'
+                    );
+                }
+                if(is_array($p_t_supports) && $p_t_supports != ''){
+                    $supports = array();
+                    foreach ($p_t_supports as $item){
+                        array_push($supports,$item);
+                    }
+                    $args['supports'] = $supports;
+                }
+
+                    $args['menu_position'] = (int)$p_t_menu_position;
+                    $args['menu_icon'] = $p_t_menu_icon;
+                    $args['public'] = (bool)$p_t_public;
+                    $args['hierarchical'] = (bool)$p_t_hierarchical;
+                    $args['exclude_from_search'] = (bool)$p_t_exclude_from_search;
+                    //Добавить фильтр в который будут передаватся параметры $p_t_name $args
+                    //Регистрируем новый тип
+                    register_post_type($p_t_name,$args);
+
+            }
+        endwhile;
+    endif;
+    $wp_query = null;
+    $wp_query = $temp;
+    wp_reset_postdata();
+
+}
+

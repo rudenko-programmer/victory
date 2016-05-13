@@ -29,3 +29,11 @@ var {
     border-bottom: 0;
     border-radius: 2px;
 }
+var span{
+    width:40px;
+    display: inline-block;
+}
+
+.post-type-victory_post_type #edit-slug-box, .post-type-victory_post_type #minor-publishing{
+    display: none;
+}

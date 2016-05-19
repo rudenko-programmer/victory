@@ -1,9 +1,7 @@
 <?php
 
 class CustomPostTypeInit{
-    //Название типа поста для кастомных типов записи
-    public $custom_post_type_name = '';
-
+    
     function __construct()
     {
         //Инициализация типа поста для хранения пользовательских типов записей
@@ -114,8 +112,8 @@ class CustomPostTypeInit{
          */
         global $nonce_field_basename;
         $nonce_field_basename = basename(__FILE__);
-        
-        require_once VICTORY_DIR.'/includes/admin/templates/post_type_create_page.php';
+
+        require_once VICTORY_DIR.'/includes/templates/post_type_create_page.php';
     }
     /**
      * Функция добавляет дополнительные поля на страницу создания типов записей

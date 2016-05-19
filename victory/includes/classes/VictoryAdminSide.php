@@ -12,8 +12,8 @@ class VictoryAdminSide {
         add_submenu_page( 'victory_main_page', 'Таксономии', 'Таксономии', 'manage_options', 'victory_taxonomy_page', array($this,'get_taxonomy_page'));
         add_submenu_page( 'victory_main_page', 'Блоки', 'Блоки', 'manage_options', 'victory_meta_box_page', array($this,'get_meta_box_page'));
     }
-    public function get_plugin_page()   {require_once VICTORY_DIR.'/includes/admin/templates/main_setting_page.php';}
-    public function get_post_type_page(){require_once VICTORY_DIR.'/includes/admin/templates/post_type_page.php';}
-    public function get_taxonomy_page() {require_once VICTORY_DIR.'/includes/admin/templates/taxonomy_page.php';}
-    public function get_meta_box_page() {require_once VICTORY_DIR.'/includes/admin/templates/meta_box_page.php';}
+    public function get_plugin_page()   {require_once VICTORY_DIR.'/includes/templates/main_setting_page.php';}
+    public function get_post_type_page(){require_once VICTORY_DIR.'/includes/templates/post_type_page.php';}
+    public function get_taxonomy_page() {require_once VICTORY_DIR.'/includes/templates/taxonomy_page.php';}
+    public function get_meta_box_page() {require_once VICTORY_DIR.'/includes/templates/meta_box_page.php';}
 }
